@@ -22,9 +22,9 @@ variable "create_access_policy" {
 }
 
 variable "endpoint_options" {
-  type        = list(any)
+  type        = map(any)
   description = "Domain endpoint options"
-  default     = []
+  default     = {}
 }
 
 variable "index_field" {
@@ -34,9 +34,9 @@ variable "index_field" {
 }
 
 variable "scaling_parameters" {
-  type        = list(any)
+  type        = map(any)
   description = "Domain scaling parameters"
-  default     = []
+  default     = {}
 }
 
 variable "access_policy" {

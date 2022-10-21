@@ -8,12 +8,11 @@ module "cloudsearch" {
   source = "../../"
 
   cloudsearch_domain_name = "test"
-  endpoint_options = [
-    {
-      enforce_https       = true
-      tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
-    }
-  ]
+  endpoint_options = {
+    enforce_https       = true
+    tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
+  }
+
 
   index_field = [
     {
@@ -21,17 +20,16 @@ module "cloudsearch" {
       type = "double"
     },
     {
-      name   = "main"
-      type   = "text"
-      search = true
+      name            = "main"
+      type            = "text"
+      search          = true
+      analysis_scheme = "_en_default_"
     }
   ]
 
-  scaling_parameters = [
-    {
-      desired_instance_type = "search.small"
-    }
-  ]
+  scaling_parameters = {
+    desired_instance_type = "search.small"
+  }
 
   # This is just an example policy to show how the module inputs work
   # https://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html

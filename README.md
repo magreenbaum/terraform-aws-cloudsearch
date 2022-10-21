@@ -39,10 +39,10 @@ No modules.
 | <a name="input_cloudsearch_domain_name"></a> [cloudsearch\_domain\_name](#input\_cloudsearch\_domain\_name) | The name of the CloudSearch domain | `string` | n/a | yes |
 | <a name="input_create"></a> [create](#input\_create) | Whether or not to create a cloudsearch domain | `bool` | `true` | no |
 | <a name="input_create_access_policy"></a> [create\_access\_policy](#input\_create\_access\_policy) | Whether or not to create a cloudsearch domain service access policy | `bool` | `true` | no |
-| <a name="input_endpoint_options"></a> [endpoint\_options](#input\_endpoint\_options) | Domain endpoint options | `list(any)` | `[]` | no |
+| <a name="input_endpoint_options"></a> [endpoint\_options](#input\_endpoint\_options) | Domain endpoint options | `map(any)` | `{}` | no |
 | <a name="input_index_field"></a> [index\_field](#input\_index\_field) | The index fields for documents added to the domain | `list(any)` | `[]` | no |
 | <a name="input_multi_az_enabled"></a> [multi\_az\_enabled](#input\_multi\_az\_enabled) | Whether or not to maintain extra instances for the domain in a second Availability Zone to ensure high availability | `bool` | `false` | no |
-| <a name="input_scaling_parameters"></a> [scaling\_parameters](#input\_scaling\_parameters) | Domain scaling parameters | `list(any)` | `[]` | no |
+| <a name="input_scaling_parameters"></a> [scaling\_parameters](#input\_scaling\_parameters) | Domain scaling parameters | `map(any)` | `{}` | no |
 
 ## Outputs
 

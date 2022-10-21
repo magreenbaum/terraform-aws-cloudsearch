@@ -4,10 +4,10 @@ resource "aws_cloudsearch_domain" "domain" {
   multi_az = var.multi_az_enabled
 
   dynamic "endpoint_options" {
-    for_each = length(var.endpoint_options) > 0 ? [true] : []
+    for_each = length(keys(var.endpoint_options)) > 0 ? [true] : []
     content {
-      enforce_https       = try(endpoint_options.value.enforce_https, null)
-      tls_security_policy = try(endpoint_options.value.tls_security_policy, null)
+      enforce_https       = try(var.endpoint_options["enforce_https"], null)
+      tls_security_policy = try(var.endpoint_options["tls_security_policy"], null)
     }
   }
 
@@ -28,11 +28,11 @@ resource "aws_cloudsearch_domain" "domain" {
   }
 
   dynamic "scaling_parameters" {
-    for_each = length(var.scaling_parameters) > 0 ? [true] : []
+    for_each = length(keys(var.scaling_parameters)) > 0 ? [true] : []
     content {
-      desired_instance_type     = try(scaling_parameters.value.desired_instance_type, null)
-      desired_partition_count   = try(scaling_parameters.value.desired_partition_count, null)
-      desired_replication_count = try(scaling_parameters.value.desired_replication_count, null)
+      desired_instance_type     = try(var.scaling_parameters["desired_instance_type"], null)
+      desired_partition_count   = try(var.scaling_parameters["desired_partition_count"], null)
+      desired_replication_count = try(var.scaling_parameters["desired_replication_count"], null)
     }
   }
 }
