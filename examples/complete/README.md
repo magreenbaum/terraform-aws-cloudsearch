@@ -34,5 +34,10 @@ No inputs.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_document_service_endpoint"></a> [document\_service\_endpoint](#output\_document\_service\_endpoint) | n/a |
+| <a name="output_domain_arn"></a> [domain\_arn](#output\_domain\_arn) | n/a |
+| <a name="output_domain_id"></a> [domain\_id](#output\_domain\_id) | n/a |
+| <a name="output_search_service_endpoint"></a> [search\_service\_endpoint](#output\_search\_service\_endpoint) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
