@@ -33,6 +33,8 @@ module "cloudsearch" {
     }
   ]
 
+  # This is just an example policy to show how the module inputs work
+  # https://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html
   access_policy_statement = [
     {
       sid         = "search_only"
