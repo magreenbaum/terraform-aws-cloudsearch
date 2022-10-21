@@ -1,6 +1,9 @@
 provider "aws" {
   region = "us-west-2"
 }
+
+data "aws_caller_identity" "current" {}
+
 module "cloudsearch" {
   source = "../../"
 
@@ -34,7 +37,7 @@ module "cloudsearch" {
     {
       sid         = "search_only"
       effect      = "Allow"
-      identifiers = ["*"]
+      identifiers = [data.aws_caller_identity.current.id]
       type        = "AWS"
       actions = [
         "cloudsearch:search",
