@@ -29,4 +29,24 @@ module "cloudsearch" {
       desired_instance_type = "search.small"
     }
   ]
+
+  access_policy_statement = [
+    {
+      sid         = "search_only"
+      effect      = "Allow"
+      identifiers = ["*"]
+      type        = "AWS"
+      actions = [
+        "cloudsearch:search",
+        "cloudsearch:document"
+      ]
+      condition = [
+        {
+          test     = "IpAddress"
+          values   = ["10.10.10.10/32"]
+          variable = "aws:SourceIp"
+        }
+      ]
+    }
+  ]
 }

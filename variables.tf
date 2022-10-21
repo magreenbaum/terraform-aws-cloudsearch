@@ -18,7 +18,7 @@ variable "create" {
 variable "create_access_policy" {
   type        = bool
   description = "Whether or not to create a cloudsearch domain service access policy"
-  default     = false
+  default     = true
 }
 
 variable "endpoint_options" {
@@ -43,4 +43,10 @@ variable "access_policy" {
   type        = string
   description = "The access rules you want to configure. These rules replace any existing rules"
   default     = ""
+}
+
+variable "access_policy_statement" {
+  type        = any
+  description = ""
+  default     = []
 }

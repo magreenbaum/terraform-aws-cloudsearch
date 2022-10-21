@@ -39,6 +39,32 @@ resource "aws_cloudsearch_domain" "domain" {
 
 resource "aws_cloudsearch_domain_service_access_policy" "access_policy" {
   count         = var.create_access_policy ? 1 : 0
-  access_policy = var.access_policy
+  access_policy = var.access_policy != "" ? var.access_policy : data.aws_iam_policy_document.access_policy[0].json
   domain_name   = aws_cloudsearch_domain.domain[0].name
+}
+
+# This will deny all by default if a policy isn't otherwise specified or the statement is not customized
+# Customize accordingly
+data "aws_iam_policy_document" "access_policy" {
+  count = var.access_policy == "" ? 1 : 0
+  dynamic "statement" {
+    for_each = var.access_policy_statement
+    content {
+      sid    = lookup(statement.value, "sid", "deny_all")
+      effect = lookup(statement.value, "effect", "Deny")
+      principals {
+        identifiers = lookup(statement.value, "identifiers", ["*"])
+        type        = lookup(statement.value, "type", "AWS")
+      }
+      actions = lookup(statement.value, "actions", ["cloudsearch:*"])
+      dynamic "condition" {
+        for_each = lookup(statement.value, "condition", [])
+        content {
+          test     = lookup(condition.value, "test", null)
+          values   = lookup(condition.value, "values", null)
+          variable = lookup(condition.value, "variable", null)
+        }
+      }
+    }
+  }
 }
