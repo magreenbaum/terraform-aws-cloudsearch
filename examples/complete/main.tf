@@ -41,7 +41,7 @@ module "cloudsearch" {
       type        = "AWS"
       actions = [
         "cloudsearch:search",
-        "cloudsearch:document"
+        "cloudsearch:document",
       ]
       condition = [
         {

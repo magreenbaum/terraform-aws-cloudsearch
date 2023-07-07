@@ -16,14 +16,14 @@ resource "aws_cloudsearch_domain" "domain" {
     content {
       name            = index_field.value.name
       type            = index_field.value.type
-      analysis_scheme = lookup(index_field.value, "analysis_scheme", null)
-      default_value   = lookup(index_field.value, "default_value", null)
-      facet           = lookup(index_field.value, "facet", null)
-      highlight       = lookup(index_field.value, "highlight", null)
-      return          = lookup(index_field.value, "return", null)
-      search          = lookup(index_field.value, "search", null)
-      sort            = lookup(index_field.value, "sort", null)
-      source_fields   = lookup(index_field.value, "source_field", null)
+      analysis_scheme = try(index_field.value.analysis_scheme, null)
+      default_value   = try(index_field.value.default_value, null)
+      facet           = try(index_field.value.facet, null)
+      highlight       = try(index_field.value.highlight, null)
+      return          = try(index_field.value.return, null)
+      search          = try(index_field.value.search, null)
+      sort            = try(index_field.value.sort, null)
+      source_fields   = try(index_field.value.source_field, null)
     }
   }
 
@@ -50,19 +50,19 @@ data "aws_iam_policy_document" "access_policy" {
   dynamic "statement" {
     for_each = var.access_policy_statement
     content {
-      sid    = lookup(statement.value, "sid", "deny_all")
-      effect = lookup(statement.value, "effect", "Deny")
+      sid    = try(statement.value.sid, "deny_all")
+      effect = try(statement.value.effect, "Deny")
       principals {
-        identifiers = lookup(statement.value, "identifiers", ["*"])
-        type        = lookup(statement.value, "type", "AWS")
+        identifiers = try(statement.value.identifiers, ["*"])
+        type        = try(statement.value.type, "AWS")
       }
-      actions = lookup(statement.value, "actions", ["cloudsearch:*"])
+      actions = try(statement.value.actions, ["cloudsearch:*"])
       dynamic "condition" {
-        for_each = lookup(statement.value, "condition", [])
+        for_each = try(statement.value.condition, [])
         content {
-          test     = lookup(condition.value, "test", null)
-          values   = lookup(condition.value, "values", null)
-          variable = lookup(condition.value, "variable", null)
+          test     = try(condition.value.test, null)
+          values   = try(condition.value.values, null)
+          variable = try(condition.value.variable, null)
         }
       }
     }
